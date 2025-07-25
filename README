@@ -1,0 +1,88 @@
+# Saúde Rápida - APP
+
+## Requisitos do host
+- Docker
+- Docker Compose
+- Make
+
+## Instruções de Instalação e Execução
+
+### 1. Clonar o repositório
+```bash
+git clone <url-do-repositorio>
+cd saude_rapida
+```
+
+### 2. Executar com Docker Compose
+
+#### Construir e iniciar os serviços:
+```bash
+make build
+make dev
+```
+
+> **Atenção:** Na primeira execução, o serviço de IA (`ollama`) pode demorar para baixar o modelo. Aguarde até o download ser concluído antes de testar a API.  
+> Para acompanhar o download:  
+> ```bash
+> docker logs saude-rapida-ollama -f
+> ```
+> Quando finalizado, será exibida a mensagem: `success`
+
+#### Parar os serviços:
+```bash
+make down
+```
+
+### 3. Acessar a aplicação
+- **Frontend:** [http://localhost:16007](http://localhost:16007)
+
+## Estrutura do Projeto
+```
+saude_rapida/
+├── docker-compose.yml
+├── app/ 
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── public/
+│   ├── src/
+│   └── scripts/
+├── api/
+│   ├── Dockerfile
+│   └── main.py
+├── database/ 
+│   ├── Dockerfile
+│   └── init.sql
+└── README
+```
+
+## Serviços
+
+- **saude-rapida-app:** Interface web React para pacientes
+- **api:** Backend FastAPI, integra com IA via Ollama e banco de dados
+- **ollama:** Serviço de IA, baixa e serve o modelo de linguagem (ex: llama3:instruct)
+- **database:** Banco de dados MariaDB/MySQL para registro das triagens
+
+
+## Tecnologias Utilizadas
+
+- React 18
+- FastAPI
+- Ollama (IA)
+- MariaDB/MySQL
+- Docker & Docker Compose
+
+
+## Solução de Problemas
+
+- Se o frontend ou backend não responder, verifique se todos os containers estão rodando:
+  ```bash
+  docker-compose ps
+  ```
+- Se o backend retornar erro 500, aguarde o download do modelo no serviço `ollama` (atualmente llama3:instruct):
+  ```bash
+  docker-compose logs ollama
+  ```
+- Para reiniciar apenas o backend:
+  ```bash
+  docker-compose restart api
+  ```

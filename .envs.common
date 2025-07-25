@@ -1,0 +1,6 @@
+# DATABASE
+MYSQL_ROOT_PASSWORD="@therootpasswd@"
+MYSQL_DATABASE="saude_rapida"
+MYSQL_USER="saude_admin"
+MYSQL_PASSWORD="@senhasuperforte123@321@"
+MYSQL_PORT=3308

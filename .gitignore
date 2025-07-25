@@ -1,0 +1,48 @@
+# dependencies
+app/node_modules
+app/.pnp
+app/.pnp.js
+app/.yarn/install-state.gz
+
+# testing
+app/coverage
+app/dist
+
+# production
+app/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+app/npm-debug.log*
+app/yarn-debug.log*
+app/yarn-error.log*
+
+# typescript
+*.tsbuildinfo
+
+# Python
+*pyc
+
+# VOLUMES
+/volumes/database/*
+!/volumes/database/data/*.md
+!/volumes/database/dumps/*.md
+
+/volumes/logs/*
+!/volumes/logs/*.md
+
+/volumes/statics/*
+!/volumes/statics/private/*.md
+!/volumes/statics/private/uploads/*.md
+!/volumes/statics/public/temp/*.md
+!/volumes/statics/public/uploads/*.md
+
+/volumes/temp/*
+!/volumes/temp/*.md
+
+# IMAGES
+/images/*
+!/images/*.md

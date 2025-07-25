@@ -1,0 +1,67 @@
+services:
+  saude-rapida-app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: saude-rapida-frontend
+    ports:
+      - "16007:16007"
+    volumes:
+      - ./app/src:/app/src:ro
+      - ./app/public:/app/public:ro
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+  
+  ollama:
+    image: ollama/ollama
+    container_name: saude-rapida-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: always
+    network_mode: "host"
+    entrypoint: >
+      /bin/bash -c "
+      ollama serve &
+      sleep 5 &&
+      ollama pull llama3:instruct &&
+      tail -f /dev/null
+      "
+  
+  api:
+    build: ./api
+    container_name: saude-rapida-api
+    env_file:
+      - .envs.common
+    ports:
+      - "11435:11435"
+    volumes:
+      - ./api:/api
+    depends_on:
+      - ollama
+    restart: always
+    network_mode: "host"
+  
+
+  database:
+    build: ./database
+    container_name: saude-rapida-database
+    env_file:
+      - .envs.common
+    restart: always
+    volumes:
+      - ./volumes/logs:/var/log/mysql
+      - ./volumes/database/data:/var/lib/mysql
+      - ./database/etc/conf.d:/etc/mysql/conf.d
+    ports:
+      - "3308:3306" 
+
+volumes:
+  node_modules:
+  ollama_data:
