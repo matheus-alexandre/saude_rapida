@@ -9,7 +9,7 @@
 
 ### 1. Clonar o repositório
 ```bash
-git clone <url-do-repositorio>
+git clone git@github.com:matheus-alexandre/saude_rapida.git
 cd saude_rapida
 ```
 

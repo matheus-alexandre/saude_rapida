@@ -20,8 +20,6 @@ services:
   ollama:
     image: ollama/ollama
     container_name: saude-rapida-ollama
-    ports:
-      - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
     restart: always
@@ -39,8 +37,6 @@ services:
     container_name: saude-rapida-api
     env_file:
       - .envs.common
-    ports:
-      - "11435:11435"
     volumes:
       - ./api:/api
     depends_on:

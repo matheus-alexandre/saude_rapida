@@ -1,7 +1,20 @@
 import React from 'react';
-import { Container, Typography, Box, Card, CardContent } from '@mui/material';
+import { Container, Typography, Box, Card, CardContent, Button, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export const PageHome = () => {
+    const navigate = useNavigate();
+
+    const handleTriageClick = () => {
+        navigate('/triage');
+    };
+
+    const handleAdminClick = () => {
+        navigate('/admin');
+    };
+
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
             <Box textAlign="center" mb={4}>
@@ -14,13 +27,61 @@ export const PageHome = () => {
             </Box>
             
             <Card elevation={3}>
-                <CardContent>
-                    <Typography variant="h4" gutterBottom>
+                <CardContent sx={{ p: 4 }}>
+                    <Typography variant="h4" gutterBottom textAlign="center" mb={4}>
                         Bem-vindo!
                     </Typography>
-                    <Typography variant="body1">
-                        Esta é a aplicação Saúde Rápida. A aplicação está funcionando corretamente.
-                    </Typography>
+                    
+                    <Grid container spacing={3} justifyContent="center">
+                        <Grid item xs={12} md={6}>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                fullWidth
+                                onClick={handleTriageClick}
+                                startIcon={<LocalHospitalIcon />}
+                                sx={{
+                                    py: 3,
+                                    fontSize: '1.2rem',
+                                    borderRadius: 2,
+                                    textTransform: 'none',
+                                    boxShadow: 3,
+                                    '&:hover': {
+                                        boxShadow: 6,
+                                        transform: 'translateY(-2px)',
+                                    },
+                                    transition: 'all 0.3s ease',
+                                }}
+                            >
+                                Ir Para a Triagem
+                            </Button>
+                        </Grid>
+                        
+                        <Grid item xs={12} md={6}>
+                            <Button
+                                variant="outlined"
+                                size="large"
+                                fullWidth
+                                onClick={handleAdminClick}
+                                startIcon={<AdminPanelSettingsIcon />}
+                                sx={{
+                                    py: 3,
+                                    fontSize: '1.2rem',
+                                    borderRadius: 2,
+                                    textTransform: 'none',
+                                    borderWidth: 2,
+                                    '&:hover': {
+                                        borderWidth: 2,
+                                        transform: 'translateY(-2px)',
+                                        boxShadow: 3,
+                                    },
+                                    transition: 'all 0.3s ease',
+                                }}
+                            >
+                                Painel Administrativo
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </CardContent>
             </Card>
         </Container>
